@@ -61,20 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
               label: Text('Compute'),
               icon: Icon(Icons.star),
             ),
-            // ElevatedButton.icon(
-            //   onPressed: () async {
-            //     var receivePort = ReceivePort();
-            //     await Isolate.spawn(fetchDataIsolate, (
-            //     iteration: 1000,
-            //     sendPort: receivePort.sendPort,
-            //     ));
-            //     receivePort.listen((message) {
-            //       debugPrint('Isolate progress: $message');
-            //     });
-            //   },
-            //   label: Text('Isolates'),
-            //   icon: Icon(Icons.star),
-            // )
+            ElevatedButton.icon(
+              onPressed: () async {
+                var receivePort = ReceivePort();
+                await Isolate.spawn(fetchDataIsolate, (
+                iteration: 1000,
+                sendPort: receivePort.sendPort,
+                ));
+                receivePort.listen((message) {
+                  debugPrint('Isolate progress: $message');
+                });
+              },
+              label: Text('Isolates'),
+              icon: Icon(Icons.star),
+            )
           ],
         ),
       ),
@@ -95,17 +95,17 @@ Future<String> fetchData(int iteration) async {
 }
 
 
-// //========> outside the main app
-// Future<void> fetchDataIsolate(({int iteration, SendPort sendPort}) data) async {
-//   final jsonData = jsonEncode(
-//     List.generate(10000, (i) => {'id': i, 'value': 'value of $i'}),
-//   );
-//
-//   for (var i = 1; i <= data.iteration; i++) {
-//     jsonDecode(jsonData);
-//     var percentage = (i / data.iteration) * 100;
-//     if (percentage % 10 == 0) {
-//       data.sendPort.send(percentage);
-//     }
-//   }
-// }
+//========> outside the main app
+Future<void> fetchDataIsolate(({int iteration, SendPort sendPort}) data) async {
+  final jsonData = jsonEncode(
+    List.generate(10000, (i) => {'id': i, 'value': 'value of $i'}),
+  );
+
+  for (var i = 1; i <= data.iteration; i++) {
+    jsonDecode(jsonData);
+    var percentage = (i / data.iteration) * 100;
+    if (percentage % 10 == 0) {
+      data.sendPort.send(percentage);
+    }
+  }
+}
