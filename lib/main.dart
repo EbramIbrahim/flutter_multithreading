@@ -53,14 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text("Async/Await"),
             ),
-            // ElevatedButton.icon(
-            //   onPressed: () async {
-            //     var json = await compute(fetchData, 1000);
-            //     debugPrint('Compute  result: length - ${json.length}');
-            //   },
-            //   label: Text('Compute'),
-            //   icon: Icon(Icons.star),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                var json = await compute(fetchData, 1000);
+                debugPrint('Compute  result: length - ${json.length}');
+              },
+              label: Text('Compute'),
+              icon: Icon(Icons.star),
+            ),
             // ElevatedButton.icon(
             //   onPressed: () async {
             //     var receivePort = ReceivePort();
